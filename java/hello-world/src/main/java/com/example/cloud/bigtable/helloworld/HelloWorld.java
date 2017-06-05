@@ -175,7 +175,7 @@ public class HelloWorld {
   public static Object[] getAllData(int size){
 	  List<String> stringList = new ArrayList<String>();
 	  for (int i = 0; i < size; i++){
-		  stringList.add(getString('a', 1000000));
+		  stringList.add(getString('a', 10000));
 	  }
 	  Object[] objarr = stringList.toArray();
 	  return objarr;

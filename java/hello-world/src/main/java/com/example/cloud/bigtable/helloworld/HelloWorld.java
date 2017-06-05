@@ -90,7 +90,9 @@ public class HelloWorld {
       // Write some rows to the table
       print("Write some greetings to the table");
       Object[] arr = getAllData(10);
-      
+      long starttime;
+      long finishtime;
+      long timeused;
       
       for (int i = 0; i < arr.length; i++) {
         // Each row has a unique row key.
@@ -109,7 +111,11 @@ public class HelloWorld {
         // Put a single row into the table. We could also pass a list of Puts to write a batch.
         Put put = new Put(Bytes.toBytes(rowKey));
         put.addColumn(COLUMN_FAMILY_NAME, COLUMN_NAME, Bytes.toBytes(arr[i].toString()));
+        starttime = System.currentTimeMillis();
         table.put(put);
+        finishtime = System.currentTimeMillis();
+        timeused = finishtime - starttime;
+        System.out.println("Put: " + i + ". time = " + timeused);
         //System.out.println("Successfully put data: " + GREETINGS[i]);
       }
       // [END writing_rows]

@@ -33,6 +33,9 @@ import org.apache.hadoop.hbase.client.ResultScanner;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
+import java.util.List;
+import java.util.ArrayList;
+
 
 import java.io.IOException;
 
@@ -86,7 +89,10 @@ public class HelloWorld {
 
       // Write some rows to the table
       print("Write some greetings to the table");
-      for (int i = 0; i < GREETINGS.length; i++) {
+      Object[] arr = getAllData(10);
+      
+      
+      for (int i = 0; i < arr.length; i++) {
         // Each row has a unique row key.
         //
         // Note: This example uses sequential numeric IDs for simplicity, but
@@ -156,6 +162,16 @@ public class HelloWorld {
     String instanceId = requiredProperty("bigtable.instanceID");
 
     doHelloWorld(projectId, instanceId);
+  }
+  
+  
+  public static Object[] getAllData(int size){
+	  List<String> stringList = new ArrayList<String>();
+	  for (int i = 0; i < size; i++){
+		  stringList.add(getString('a', 1000));
+	  }
+	  Object[] objarr = stringList.toArray();
+	  return objarr;
   }
   
   

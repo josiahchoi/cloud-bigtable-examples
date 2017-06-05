@@ -61,6 +61,7 @@ public class HelloWorld {
     GREETINGS[0] = getString('a', 100000000);
     GREETINGS[1] = getString('b', 100000000);
     GREETINGS[2] = getString('c', 100000000);
+    System.
 
     // [START connecting_to_bigtable]
     // Create the Bigtable connection, use try-with-resources to make sure it gets closed
@@ -174,7 +175,7 @@ public class HelloWorld {
   public static Object[] getAllData(int size){
 	  List<String> stringList = new ArrayList<String>();
 	  for (int i = 0; i < size; i++){
-		  stringList.add(getString('a', 1000));
+		  stringList.add(getString('a', 1000000));
 	  }
 	  Object[] objarr = stringList.toArray();
 	  return objarr;

@@ -61,7 +61,7 @@ public class HelloWorld {
     GREETINGS[0] = getString('a', 100000000);
     GREETINGS[1] = getString('b', 100000000);
     GREETINGS[2] = getString('c', 100000000);
-    System.
+    
 
     // [START connecting_to_bigtable]
     // Create the Bigtable connection, use try-with-resources to make sure it gets closed

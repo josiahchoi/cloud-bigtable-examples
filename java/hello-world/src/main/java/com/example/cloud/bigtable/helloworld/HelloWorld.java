@@ -21,8 +21,8 @@ package com.example.cloud.bigtable.helloworld;
 
 import com.google.cloud.bigtable.hbase.BigtableConfiguration;
 
-import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.HTableDescriptor;
+//import org.apache.hadoop.hbase.HColumnDescriptor;
+//import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
@@ -55,6 +55,9 @@ public class HelloWorld {
    * Connects to Cloud Bigtable, runs some basic operations and prints the results.
    */
   private static void doHelloWorld(String projectId, String instanceId) {
+    GREETINGS[0] = getString('a', 100000000);
+    GREETINGS[1] = getString('b', 100000000);
+    GREETINGS[2] = getString('c', 100000000);
 
     // [START connecting_to_bigtable]
     // Create the Bigtable connection, use try-with-resources to make sure it gets closed
@@ -64,6 +67,7 @@ public class HelloWorld {
       Admin admin = connection.getAdmin();
       // [END connecting_to_bigtable]
 
+  /*
       // [START creating_a_table]
       // Create a table with a single column family
       HTableDescriptor descriptor = new HTableDescriptor(TableName.valueOf(TABLE_NAME));
@@ -72,10 +76,13 @@ public class HelloWorld {
       print("Create table " + descriptor.getNameAsString());
       admin.createTable(descriptor);
       // [END creating_a_table]
+  */
 
       // [START writing_rows]
       // Retrieve the table we just created so we can do some reads and writes
       Table table = connection.getTable(TableName.valueOf(TABLE_NAME));
+
+  
 
       // Write some rows to the table
       print("Write some greetings to the table");
@@ -97,8 +104,10 @@ public class HelloWorld {
         Put put = new Put(Bytes.toBytes(rowKey));
         put.addColumn(COLUMN_FAMILY_NAME, COLUMN_NAME, Bytes.toBytes(GREETINGS[i]));
         table.put(put);
+        //System.out.println("Successfully put data: " + GREETINGS[i]);
       }
       // [END writing_rows]
+  
 
       // [START getting_a_row]
       // Get the first greeting by row key
@@ -106,7 +115,7 @@ public class HelloWorld {
       Result getResult = table.get(new Get(Bytes.toBytes(rowKey)));
       String greeting = Bytes.toString(getResult.getValue(COLUMN_FAMILY_NAME, COLUMN_NAME));
       System.out.println("Get a single greeting by row key");
-      System.out.printf("\t%s = %s\n", rowKey, greeting);
+      //System.out.printf("\t%s = %s\n", rowKey, greeting);
       // [END getting_a_row]
 
       // [START scanning_all_rows]
@@ -117,15 +126,15 @@ public class HelloWorld {
       ResultScanner scanner = table.getScanner(scan);
       for (Result row : scanner) {
         byte[] valueBytes = row.getValue(COLUMN_FAMILY_NAME, COLUMN_NAME);
-        System.out.println('\t' + Bytes.toString(valueBytes));
+        //System.out.println('\t' + Bytes.toString(valueBytes));
       }
       // [END scanning_all_rows]
 
       // [START deleting_a_table]
       // Clean up by disabling and then deleting the table
-      print("Delete the table");
+      /*print("Delete the table");
       admin.disableTable(table.getName());
-      admin.deleteTable(table.getName());
+      admin.deleteTable(table.getName());*/
       // [END deleting_a_table]
 
     } catch (IOException e) {
@@ -147,6 +156,15 @@ public class HelloWorld {
     String instanceId = requiredProperty("bigtable.instanceID");
 
     doHelloWorld(projectId, instanceId);
+  }
+  
+  
+  public static String getString(char charToAppend, int size) {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < size; i++) {
+      sb.append(charToAppend);
+    }
+    return sb.toString();
   }
 
   private static String requiredProperty(String prop) {

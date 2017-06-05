@@ -108,7 +108,7 @@ public class HelloWorld {
 
         // Put a single row into the table. We could also pass a list of Puts to write a batch.
         Put put = new Put(Bytes.toBytes(rowKey));
-        put.addColumn(COLUMN_FAMILY_NAME, COLUMN_NAME, Bytes.toBytes(GREETINGS[i]));
+        put.addColumn(COLUMN_FAMILY_NAME, COLUMN_NAME, Bytes.toBytes(arr[i]));
         table.put(put);
         //System.out.println("Successfully put data: " + GREETINGS[i]);
       }

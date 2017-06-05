@@ -89,7 +89,7 @@ public class HelloWorld {
 
       // Write some rows to the table
       print("Write some greetings to the table");
-      Object[] arr = getAllData(10);
+      Object[] arr = getAllData(10000);
       long starttime;
       long finishtime;
       long timeused;
